@@ -183,3 +183,4 @@ row_sub = apply(cooling_dataframe, 1, function(row) all(row !=0 ))
 cooling_dataframe <- cooling_dataframe[row_sub,]
 
 write.csv(cooling_dataframe, file = "cooling_rate.csv")
+
