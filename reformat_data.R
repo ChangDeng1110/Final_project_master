@@ -70,7 +70,10 @@ for (i in 1:218){
   x <- ggplot(per_day_temp[[i]],aes(x=Timestamp))+
     geom_point(aes(y = Roof_temp, colour = "Roof_temp"))+
     geom_point(aes(y = SA_temp, colour = "SA_temp"))+
-    geom_point(aes(y = Room_temp, colour = "Room_temp"))
+    geom_point(aes(y = Room_temp, colour = "Room_temp"))+ 
+    theme(axis.text=element_text(size=15),axis.title=element_text(size=18,face="bold"),
+          title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+labs(title = "Temperature change", x = "Time", y = "Temperature (Celsius)",color = "Records")+scale_color_hue(labels = c("Outside temp", "Inside temp",'HVAC temp'))
+  
   plot_temp[[i]] <- x
 }
 
