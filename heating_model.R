@@ -14,7 +14,7 @@ regression_heating <- function(formula, data, indices) {
 svm_heating <- function(formula, data, indices){
   d <- data[indices,] 
   d <- na.omit(d)
-  fit <- svm(formula, data=d, gamma=2.1, C=1, kernel = "radial")
+  fit <- svm(formula, data=d, gamma=2.1, cost=1.5, kernel = "radial")
   predictions <- predict(fit, test_heating)
   rmse_value <- RMSE(test_heating$rate, predictions)
   #print(predictions)
@@ -81,7 +81,8 @@ tbl <- data.frame(
   results = result
 )
 
-boxplot(results~names, data=tbl, xlab="Model", ylab="RMSE", par(cex.axis=1), par(cex.lab=1))
+boxplot(results~names, data=tbl, xlab="Model", ylab="RMSE", par(cex.axis=1), par(cex.lab=1),main="RMSE ~ heating",names=c("NN","MLR",'Random forest','SVM'),
+        xlab="Model type", ylab="Error",cex.main=2, cex.lab=1.25, cex.axis=2)
 
 lr_heating
 #plot(lr_b)

@@ -12,7 +12,7 @@ regression_cooling <- function(formula, data, indices) {
 svm_cooling <- function(formula, data, indices){
   d <- data[indices,] 
   d <- na.omit(d)
-  fit <- svm(formula, data=d, gamma=0.1, C=1, kernel = "radial")
+  fit <- svm(formula, data=d, gamma=0.1, cost=3.6, kernel = "radial")
   predictions <- predict(fit, test_cooling)
   rmse_value <- RMSE(test_cooling$rate, predictions)
   #print(predictions)
@@ -37,7 +37,7 @@ radom_forest_cooling <- function(formula, data, indices){
   d <- na.omit(d)
   #print(d)
   rf <- rfsrc(formula, data=d, 
-              mtry=3,ntree = 5000,importance = TRUE,nodesize=9,splitrule = "mse",ntime = 30)
+              mtry=3,ntree = 5000,importance = TRUE,nodesize=5,splitrule = "quantile.regr",ntime = 30)
   #print("helo")
   preds<-predict(rf, test_rf_cooling)
   #print(preds)
@@ -79,15 +79,16 @@ tbl <- data.frame(
   results = result
 )
 
-boxplot(results~names, data=tbl, xlab="Model", ylab="RMSE", par(cex.axis=1), par(cex.lab=1))
+boxplot(results~names, data=tbl, xlab="Model", ylab="RMSE", par(cex.axis=1), par(cex.lab=1),main="RMSE ~ cooling",names=c("NN","MLR",'Random forest','SVM'),
+        xlab="Model type", ylab="Error",cex.main=2, cex.lab=1.25, cex.axis=2)
 
-lr_cooling
+#lr_cooling
 #plot(lr_b)
-svm_cooling
-nn_cooling
-rf_cooling
+#svm_cooling
+#nn_cooling
+#rf_cooling
 
-type=c("norm", "basic", "stud", "perc", "bca")
+#type=c("norm", "basic", "stud", "perc", "bca")
 #boot.ci(reg_results)
 
 boot.ci(lr_cooling, conf=0.95,type = c("norm","basic","perc"))
