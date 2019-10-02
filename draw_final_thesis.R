@@ -49,3 +49,44 @@ ggplot(list_simulation_cooling[[56]],aes(x=time))+
                                                                       title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+labs(title = "Simulation heating", x = "Time", y = "Temperature (Celsius)",color = "Records")+scale_color_hue(labels = c("average temp", "higher temp",'lower temp','inside temp'))
 
 
+
+
+data <- data.frame(time = seq(1, 10, by = 1),
+                   ert = runif(n = 10))
+
+# Turn into date format - added as.Date to origin statement
+data$time<-as.Date(data$time, "%d/%m/%y", origin = as.Date("1970-01-01"))
+
+# Verify similar structure to OPs dataset
+head(data)
+#         time       ert
+# 1 1970-01-02 0.4485163
+# 2 1970-01-03 0.8100644
+# 3 1970-01-04 0.8123895
+# 4 1970-01-05 0.7943423
+# 5 1970-01-06 0.4398317
+# 6 1970-01-07 0.7544752
+
+ggplot(data, aes(time, ert, group=1, na.rm=T))+
+  geom_rect(xmin=2,
+            xmax=5, ymin=0.2, ymax=0.5, fill="lightgreen", alpha=0.03) +
+  geom_line()+
+  labs(x="", y="ert")+
+  geom_hline(aes(yintercept=0.5), colour="#990000", linetype="dashed")
+
+pt1.plot
+
+
+#sample data
+set.seed(666)
+dat <- data.frame(x = seq(as.POSIXct('2011-03-27 00:00:00'), 
+                          len= (n=24), by="1 hour"), y = cumsum(rnorm(n)))
+#Breaks for background rectangles
+rects <- data.frame(xstart = as.POSIXct('2011-03-27 15:00:00'), 
+                    xend = as.POSIXct('2011-03-27 18:00:00'))
+
+library(ggplot2)
+ggplot() + 
+  geom_rect(data = rects, aes(xmin = xstart, xmax = xend, 
+                              ymin = -Inf, ymax = Inf), alpha = 0.4) + 
+  geom_line(data = dat, aes(x,y))
