@@ -116,7 +116,8 @@ tbl <- data.frame(
   results = result
 )
 
-boxplot(results~names, data=tbl, xlab="Heating model", ylab="RMSE", par(cex.axis=1), par(cex.lab=1))
+boxplot(results~names, data=tbl, xlab="types", ylab="RMSE", par(cex.axis=1), par(cex.lab=1),main="RMSE ~ heating (temperature)",names=c("Average","Higher",'Lower'),
+        xlab="Model type", ylab="Error",cex.main=2, cex.lab=1.25, cex.axis=2)
 
 
 

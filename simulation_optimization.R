@@ -4,22 +4,6 @@ names(temp_75_mid)[3] <- "start_temp"
 names(temp_75_mid)[5] <- "outside_temp"
 rownames(temp_75_mid) <- 1:25
 
-heating_model <- function(formula, data, indices){
-  d <- data[indices,]
-  d <- na.omit(d)
-  rf <- rfsrc(rate~start_temp + outside_temp, data=d, 
-              mtry=3,ntree = 5000,importance = TRUE,nodesize=3,splitrule = "mse", ntime = 30)
-  preds<-predict(rf, use_data)
-  return(preds$predicted)
-}
-
-cooling_model <- function(formula, data, indices){
-  d <- data[indices,] 
-  d <- na.omit(d)
-  rf <- svm(formula, data=d, gamma=0.1, C=1, kernel = "radial")
-  preds<-predict(rf, use_data_cool)
-  return (preds)
-}
 ################ 1 hours ###################
 tem_set_point1 <- 22
 tem_set_point2 <- 20

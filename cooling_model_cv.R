@@ -1,13 +1,13 @@
 set.seed(500)
 
-folds <- createFolds(train_cooling$rate,k = 10)
+folds <- createFolds(train_rf_cooling$rate,k = 10)
 indexll <- 1
 plot_svm <- matrix(c(3:14), nrow = 51, ncol = 3)
 for (i in seq(0,5,by = 0.1)){
   output_list_svm <- c()
   cv_result_svm <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     #print(test_data$rate)
     model <- svm(rate ~outside_temp + start_temp, data=train_data, gamma=i, cost=1, kernel = "radial")
     #print(model)
@@ -46,8 +46,8 @@ plot_svm <- matrix(c(3:14), nrow = 50, ncol = 3)
 for (i in seq(0.1,5,by = 0.1)){
   output_list_svm <- c()
   cv_result_svm <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     #print(test_data$rate)
     model <- svm(rate ~outside_temp + start_temp, data=train_data, gamma=0.1, cost=i, kernel = "radial")
     #print(model)
@@ -85,8 +85,8 @@ plot_svm <- matrix(c(3:14), nrow = 50, ncol = 3)
 for (i in seq(0.1,5,by = 0.1)){
   output_list_svm <- c()
   cv_result_svm <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     #print(test_data$rate)
     model <- svm(rate ~outside_temp + start_temp, data=train_data,cost=i, kernel = "linear")
     #print(model)
@@ -119,8 +119,8 @@ ggplot(plot_svm_data, aes(V1)) +
 
 #####################################
 cv_result_svm_linear <- lapply(folds, function(x){
-  train_data <- train_cooling[-x,]
-  test_data <- train_cooling[x,]
+  train_data <- train_rf_cooling[-x,]
+  test_data <- train_rf_cooling[x,]
   model <- svm(rate~outside_temp + start_temp, data=train_data,kernel = "linear")
   prediction <- predict(model, test_data)
   return(mmetric(test_data$rate,prediction,c("RMSE","MAE")))
@@ -134,8 +134,8 @@ svm_linear <- rowMeans(cbind(cv_result_svm_linear$Fold1,cv_result_svm_linear$Fol
 ####################### LM-cv #################### 
 
 cv_result_lm <- lapply(folds, function(x){
-  train_data <- train_cooling[-x,]
-  test_data <- train_cooling[x,]
+  train_data <- train_rf_cooling[-x,]
+  test_data <- train_rf_cooling[x,]
   model <- lm(rate~outside_temp + start_temp, data=train_data)
   prediction <- predict(model, test_data)
   return(mmetric(test_data$rate,prediction,c("RMSE","MAE")))
@@ -150,8 +150,8 @@ lm_out <- rowMeans(cbind(cv_result_lm$Fold1,cv_result_lm$Fold2,
 test_nn_rprop <- function (number){
   list_ouput_final <- c()
   cv_result_nn_sig <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.1,
                        algorithm = "rprop+",learningrate = 0.001)
@@ -166,8 +166,8 @@ test_nn_rprop <- function (number){
                                cv_result_nn_sig$Fold7))
   
   cv_result_nn_tanh <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.1,
                        algorithm = "rprop+",learningrate = 0.001,act.fct = "tanh")
@@ -182,8 +182,8 @@ test_nn_rprop <- function (number){
                                cv_result_nn_tanh$Fold7))
   
   cv_result_nn_logstic <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.1,
                        algorithm = "rprop+",learningrate = 0.001,act.fct = "logistic")
@@ -315,8 +315,8 @@ plot_nn_rprop
 test_nn_backprop <- function (number){
   list_ouput_final <- c()
   cv_result_nn_sig <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.5,
                        algorithm = "backprop",learningrate = 0.0001)
@@ -331,8 +331,8 @@ test_nn_backprop <- function (number){
                                cv_result_nn_sig$Fold7))
   
   cv_result_nn_tanh <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.5,
                        algorithm = "backprop",learningrate = 0.0001,act.fct = "tanh")
@@ -347,8 +347,8 @@ test_nn_backprop <- function (number){
                                cv_result_nn_tanh$Fold7))
   
   cv_result_nn_logstic <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.5,
                        algorithm = "backprop",learningrate = 0.0001,act.fct = "logistic")
@@ -482,8 +482,8 @@ plot_nn_back[12,7] <- x[[3]][2]
 test_nn_sag <- function (number){
   list_ouput_final <- c()
   cv_result_nn_sig <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.5,
                        algorithm = "sag",learningrate = 0.001)
@@ -498,8 +498,8 @@ test_nn_sag <- function (number){
                                cv_result_nn_sig$Fold7))
   
   cv_result_nn_tanh <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.5,
                        algorithm = "sag",learningrate = 0.001,act.fct = "tanh")
@@ -514,8 +514,8 @@ test_nn_sag <- function (number){
                                cv_result_nn_tanh$Fold7))
   
   cv_result_nn_logstic <- lapply(folds, function(x){
-    train_data <- train_cooling[-x,]
-    test_data <- train_cooling[x,]
+    train_data <- train_rf_cooling[-x,]
+    test_data <- train_rf_cooling[x,]
     model <- neuralnet(as.formula(rate~outside_temp + start_temp),
                        data=train_data,hidden=number,linear.output=T, threshold = 0.5,
                        algorithm = "sag",learningrate = 0.001,act.fct = "logistic")

@@ -1,13 +1,13 @@
 set.seed(500)
 
-folds <- createFolds(train_heating$rate,k = 10)
+folds <- createFolds(train_rf_heating$rate,k = 10)
 indexll <- 1
 plot_svm <- matrix(c(3:14), nrow = 51, ncol = 3)
 for (i in seq(0,5,by = 0.1)){
   output_list_svm <- c()
   cv_result_svm <- lapply(folds, function(x){
-    train_data <- train_heating[-x,]
-    test_data <- train_heating[x,]
+    train_data <- train_rf_heating[-x,]
+    test_data <- train_rf_heating[x,]
     print(test_data$rate)
     model <- svm(rate ~outside_temp + start_temp, data=train_data, gamma=i, cost=1, kernel = "radial")
     #print(model)
@@ -46,8 +46,8 @@ plot_svm <- matrix(c(3:14), nrow = 50, ncol = 3)
 for (i in seq(0.1,5,by = 0.1)){
   output_list_svm <- c()
   cv_result_svm <- lapply(folds, function(x){
-    train_data <- train_heating[-x,]
-    test_data <- train_heating[x,]
+    train_data <- train_rf_heating[-x,]
+    test_data <- train_rf_heating[x,]
     print(test_data$rate)
     model <- svm(rate ~outside_temp + start_temp, data=train_data, gamma=2.1, cost=i, kernel = "radial")
     print(model)
@@ -78,14 +78,52 @@ ggplot(plot_svm_data, aes(V1)) +
   ylab("Error")+ theme(axis.text=element_text(size=18),axis.title=element_text(size=18,face="bold")
                        ,title=element_text(size=18,face="bold"))
 
+############# c ###############
+
+indexll <- 1
+plot_svm <- matrix(c(3:14), nrow = 50, ncol = 3)
+for (i in seq(0.1,5,by = 0.1)){
+  output_list_svm <- c()
+  cv_result_svm <- lapply(folds, function(x){
+    train_data <- train_rf_heating[-x,]
+    test_data <- train_rf_heating[x,]
+    print(test_data$rate)
+    model <- svm(rate ~outside_temp + start_temp, data=train_data, gamma=2.1, cost=i, kernel = "radial")
+    print(model)
+    prediction <- predict(model, test_data)
+    #print(prediction)
+    print("======")
+    return(mmetric(test_data$rate,prediction,c("RMSE","MAE")))
+  })
+  
+  output <- rowMeans(cbind(cv_result_svm$Fold1,cv_result_svm$Fold2,
+                           cv_result_svm$Fold3,cv_result_svm$Fold4,
+                           cv_result_svm$Fold5,cv_result_svm$Fold6,
+                           cv_result_svm$Fold7))
+  print(as.matrix(output)[1,1])
+  plot_svm[indexll,1] <- i
+  plot_svm[indexll,2] <- as.matrix(output)[1,1]
+  plot_svm[indexll,3] <- as.matrix(output)[2,1]
+  indexll <- indexll + 1
+}
+
+plot_svm_data <- as.data.frame(plot_svm)
+names(plot_svm_data)[2] <- "RMSE"
+names(plot_svm_data)[3] <- "MAE"
+#plot_svm
+ggplot(plot_svm_data, aes(V1)) + 
+  geom_line(aes(y = RMSE, colour = "RMSE")) + 
+  geom_line(aes(y = MAE, colour = "MAE")) + labs(title = "Error vs Cost (heating)") + xlab("C") +
+  ylab("Error")+ theme(axis.text=element_text(size=18),axis.title=element_text(size=18,face="bold")
+                       ,title=element_text(size=18,face="bold"))
 ###############################
 indexll <- 1
 plot_svm <- matrix(c(3:14), nrow = 50, ncol = 3)
 for (i in seq(0.1,5,by = 0.1)){
   output_list_svm <- c()
   cv_result_svm <- lapply(folds, function(x){
-    train_data <- train_heating[-x,]
-    test_data <- train_heating[x,]
+    train_data <- train_rf_heating[-x,]
+    test_data <- train_rf_heating[x,]
     #print(test_data$rate)
     model <- svm(rate ~outside_temp + start_temp, data=train_data,cost=i, kernel = "linear")
     #print(model)

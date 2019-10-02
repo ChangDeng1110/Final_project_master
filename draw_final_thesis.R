@@ -20,3 +20,32 @@ draw_heating['time'] <- seq(0,60,by = 15)
 plot(draw_heating$time, draw_heating$temprature, type = "b", lty = 1, lwd = 1, col = "black",main="Heating",
      xlab="Time (min)", ylab="Temperature (Celsius)",cex.main=2, cex.lab=1.25, cex.axis=2)
 lines(draw_heating$time, draw_heating$temprature, lty = 1, lwd = 1,col = "red")
+
+
+ggplot(list_simulation_heating[[117]],aes(x=time))+
+  geom_line(aes(y = start_temp,colour = "start_temp"),size=0.5)+
+  geom_point(aes(y = start_temp, colour = "start_temp"),size=1)+
+  geom_line(aes(y = simu_ave_temp,colour = "simu_ave_temp"),size=0.5)+
+  geom_point(aes(y = simu_ave_temp, colour = "simu_ave_temp"),size=1)+
+  geom_line(aes(y = simu_high_temp,colour = "simu_high_temp"),size=1,linetype="dotted")+
+  geom_point(aes(y = simu_high_temp, colour = "simu_high_temp"),size=1) + 
+  geom_line(aes(y = simu_low_temp,colour = "simu_low_temp"),size=1,linetype="dotted")+
+  geom_point(aes(y = simu_low_temp, colour = "simu_low_temp"),size=1)+
+  geom_errorbar(aes(ymin=simu_low_temp, ymax=simu_high_temp),
+                width=1,position=position_dodge(1),size = 0.3) +theme(axis.text=element_text(size=15),axis.title=element_text(size=18,face="bold"),
+                                                                      title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+labs(title = "Simulation heating", x = "Time", y = "Temperature (Celsius)",color = "Records")+scale_color_hue(labels = c("average temp", "higher temp",'lower temp','inside temp'))
+
+ggplot(list_simulation_cooling[[56]],aes(x=time))+
+  geom_line(aes(y = start_temp,colour = "start_temp"),size=0.5)+
+  geom_point(aes(y = start_temp, colour = "start_temp"),size=1)+
+  geom_line(aes(y = simu_ave_temp,colour = "simu_ave_temp"),size=0.5)+
+  geom_point(aes(y = simu_ave_temp, colour = "simu_ave_temp"),size=1)+
+  geom_line(aes(y = simu_high_temp,colour = "simu_high_temp"),size=1,linetype="dotted")+
+  geom_point(aes(y = simu_high_temp, colour = "simu_high_temp"),size=1) + 
+  geom_line(aes(y = simu_low_temp,colour = "simu_low_temp"),size=1,linetype="dotted")+
+  geom_point(aes(y = simu_low_temp, colour = "simu_low_temp"),size=1)+
+  geom_errorbar(aes(ymin=simu_low_temp, ymax=simu_high_temp),
+                width=1,position=position_dodge(1),size = 0.3) +theme(axis.text=element_text(size=15),axis.title=element_text(size=18,face="bold"),
+                                                                      title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+labs(title = "Simulation heating", x = "Time", y = "Temperature (Celsius)",color = "Records")+scale_color_hue(labels = c("average temp", "higher temp",'lower temp','inside temp'))
+
+
