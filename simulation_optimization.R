@@ -207,7 +207,7 @@ for(i in which(print_table_opt1[,3] == min(print_table_opt1[,3])):60){
 print_table_opt1 <- na.omit(print_table_opt1)
 
 plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch='o', lty=1, ylim=c(18,25),
-     main = "One hour empty",xlab = "Min",ylab = "Temperature")
+     main = "One hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
 lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
 lines(print_table_opt1[,1], print_table_opt1[,7], col="black",lty=2)
@@ -217,7 +217,7 @@ abline(h=19.24, col="red",lty=4)
 abline(h=22, col="red",lty=4)
 #abline(h=19.24,col="green",lty=2)
 legend(1, 25, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
-       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=0.8)
+       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)
 
 
 ################ 2 hour ##################
@@ -422,7 +422,7 @@ print_table_opt1 <- na.omit(print_table_opt1)
 
 
 plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(15,27),
-     main = "Two hour empty",xlab = "Min",ylab = "Temperature")
+     main = "Two hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
 points(print_table_opt1[,1], print_table_opt1[,3], col="red", pch="*")
 lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
@@ -432,7 +432,7 @@ abline(h=20, col="blue",lty=2)
 abline(h=16.5, col="red",lty=4)
 abline(h=22, col="red",lty=4)
 legend(1, 27, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
-       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=0.8)
+       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)
 
 ############ 3 hours ############
 set.seed(100)
@@ -633,8 +633,8 @@ for(i in which(print_table_opt1[,3] == min(print_table_opt1[,3])):180){
 
 print_table_opt1 <- na.omit(print_table_opt1)
 
-plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(13,27),
-     main = "Three hour empty",xlab = "Min",ylab = "Temperature")
+plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(13,29),
+     main = "Three hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
 #points(print_table_opt1[,1], print_table_opt1[,3], col="red")
 lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
@@ -643,8 +643,8 @@ abline(h=22, col="blue",lty=2)
 abline(h=20, col="blue",lty=2)
 abline(h=15.8, col="red",lty=4)
 abline(h=22, col="red",lty=4)
-legend(1, 27, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
-       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=0.8)
+legend(1, 29, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
+       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)
 
 ################ 4 hours ###################
 
@@ -848,8 +848,8 @@ for(i in which(print_table_opt1[,3] == min(print_table_opt1[,3])):240){
 
 print_table_opt1 <- na.omit(print_table_opt1)
 
-plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(15,27),
-     main = "Four hour empty",xlab = "Min",ylab = "Temperature")
+plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(15,28),
+     main = "Four hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
 points(print_table_opt1[,1], print_table_opt1[,3], col="red", pch="*")
 lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
@@ -858,5 +858,5 @@ abline(h=22, col="blue",lty=2)
 abline(h=20, col="blue",lty=2)
 abline(h=15.5, col="red",lty=4)
 abline(h=22, col="red",lty=4)
-legend(1, 27, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
-       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=0.8)
+legend(1, 28, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
+       col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)
