@@ -281,7 +281,7 @@ for (i in 480:555){
 }
 
 print_table_opt1["low_set_point"] <- 21
-print_table_opt1[360:480,"low_set_point"] <- 17.47
+print_table_opt1[360:480,"low_set_point"] <- 17.65
 print_table_opt1["time_data"] <- 0
 my.lt <- as.POSIXct(temp_75_mid[1,2])
 
@@ -296,26 +296,26 @@ for(i in 1:555){
 print_table_opt1$time_data <- as.POSIXct(strptime(print_table_opt1$time_data, format = "%Y-%m-%d %H:%M:%S"))
 #print_table_opt1$time_data <- as.Time(strptime(print_table_opt1$time_data, format = "%Y-%m-%d %H:%M:%S"))
 
-cols <- c("Simulation of OPT temperature"="red","Simulation of Monash system"="black","OPT setpoints"="#990000","Monash setpoints"="purple")
+cols <- c("Simulation of OPT model"="red","Simulation of Monash model"="black","OPT setpoints"="#990000","Monash setpoints"="purple")
 bar <- c('Occupy' = 'lightgreen', 'No-occupy' = 'lightblue')
-
+types <- c("Simulation of OPT model"=1,"Simulation of Monash model"=1,"OPT setpoints"=4,"Monash setpoints"=2)
 ggplot(print_table_opt1, aes(time_data),na.rm=T,group=1)+
   geom_rect(aes(xmin=as.POSIXct("2017-06-28 08:00:00 AEST"),
             xmax=as.POSIXct("2017-06-28 13:59:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
   geom_rect(aes(xmin=as.POSIXct("2017-06-28 13:59:00 AEST"),
-            xmax=as.POSIXct("2017-06-28 16:00:00 AEST"), ymin=17.47, ymax=22, fill="No-occupy"), alpha=1) +
+            xmax=as.POSIXct("2017-06-28 16:00:00 AEST"), ymin=17.65, ymax=22, fill="No-occupy"), alpha=1) +
   geom_rect(aes(xmin=as.POSIXct("2017-06-28 16:00:00 AEST"),
             xmax=as.POSIXct("2017-06-28 17:14:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
-  geom_line(aes(time_data, model_2,colour="Simulation of OPT temperature"),size=0.5)+
-  geom_line(aes(time_data, model_1,colour="Simulation of Monash system"),size=0.5)+
-  geom_line(aes(time_data, low_set_point,colour="OPT setpoints"),linetype="twodash",size=0.5)+
-  geom_hline(aes(yintercept=22,colour="Monash setpoints"), linetype="dashed")+
-  geom_hline(aes(yintercept=21, colour="Monash setpoints"), linetype="dashed")+
+  geom_line(aes(time_data, model_2,colour="Simulation of OPT model",linetype="Simulation of OPT model"),size=0.5)+
+  geom_line(aes(time_data, model_1,colour="Simulation of Monash model",linetype="Simulation of Monash model"),size=0.5)+
+  geom_line(aes(time_data, low_set_point,colour="OPT setpoints",linetype="OPT setpoints"),size=1)+
+  geom_hline(aes(yintercept=22,colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
+  geom_hline(aes(yintercept=21, colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
   theme(axis.text=element_text(size=15),axis.title=element_text(size=18,face="bold"),
         title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+
   labs(title = "Wednesday (Schedule)", x = "Time", y = "Temperature (Celsius)",legend.text = element_text(size = 18))+
   scale_colour_manual(name="line",values=cols)+
-  scale_fill_manual(name="Bar",values=bar)
+  scale_linetype_manual(name = "line",values = types)+scale_fill_manual(name="Space",values=bar)
 
 
 

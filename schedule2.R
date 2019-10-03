@@ -1,13 +1,13 @@
 ################# Monday ###################
 set.seed(500)
-temp_75_mid <- read.csv("temprature_all.csv")[c(33:69),]
+temp_75_mid <- read.csv("temprature_all.csv")[c(33:73),]
 names(temp_75_mid)[3] <- "start_temp"
 names(temp_75_mid)[5] <- "outside_temp"
 rownames(temp_75_mid) <- 1:lengths(temp_75_mid)
 
 tem_set_point1 <- 22
 tem_set_point2 <- 21
-print_table_opt1 <- as.data.frame(matrix(c(0), nrow = 555, ncol = 7))
+print_table_opt1 <- as.data.frame(matrix(c(0), nrow = 615, ncol = 7))
 names(print_table_opt1)[1] <- "time"
 names(print_table_opt1)[2] <- "model_1"
 names(print_table_opt1)[3] <- "model_2"
@@ -16,15 +16,15 @@ names(print_table_opt1)[5] <- "SA_temp"
 names(print_table_opt1)[6] <- "low_temp"
 names(print_table_opt1)[7] <- "high_temp"
 
-print_table_opt1[,1] <- c(1:555)
+print_table_opt1[,1] <- c(1:615)
 print_table_opt1[1,2] <- tem_set_point1
 print_table_opt1[1,3] <- tem_set_point1
 print_table_opt1[1,6] <- tem_set_point1
 print_table_opt1[1,7] <- tem_set_point1
 
-start_20 <- temp_75_mid[1:37,]
-print_table_opt1[,4] <- rep(start_20[1:37,5], c(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15))
-print_table_opt1[,5] <- rep(start_20[1:37,4], c(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15))
+start_20 <- temp_75_mid[1:41,]
+print_table_opt1[,4] <- rep(start_20[1:41,5], c(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15))
+print_table_opt1[,5] <- rep(start_20[1:41,4], c(15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15))
 
 control <- 0
 heating_x <- 0
@@ -33,7 +33,7 @@ heating_time_1 <- 0
 heating_time_2 <- 0
 
 
-for (i in 1:555){
+for (i in 1:615){
   temp_now <- print_table_opt1[i,2]
   print(temp_now)
   if (temp_now >= tem_set_point1){
@@ -95,7 +95,7 @@ control <- 0
 heating_x <- 0
 cooling_x <- 0
 
-for (i in 1:360){
+for (i in 1:180){
   temp_now <- print_table_opt1[i,3]
   print(temp_now)
   if (temp_now >= tem_set_point1){
@@ -154,7 +154,7 @@ for (i in 1:360){
 }
 
 
-for (i in 360:410){
+for (i in 180:210){
   use_data_cool <- data.frame("start_temp" = print_table_opt1[i,3], 
                               "outside_temp" = print_table_opt1[i,4])
   #print(use_data_cool)
@@ -171,7 +171,7 @@ for (i in 360:410){
 
 finish_data_test <- 0
 
-for (k in 410:480){
+for (k in 210:300){
   use_data_cool <- data.frame("start_temp" = print_table_opt1[k,3], 
                               "outside_temp" = print_table_opt1[k,4])
   #print(use_data_cool)
@@ -193,7 +193,7 @@ for (k in 410:480){
   print(heat_ave)
   index_heating_model <- 1
   
-  for(m in (k+1):479){
+  for(m in (k+1):299){
     if (index_heating_model %% 15 == 0){
       use_data <- data.frame("start_temp" = print_table_opt1[m,3], 
                              "outside_temp" = print_table_opt1[m,4])
@@ -206,7 +206,7 @@ for (k in 410:480){
     print(heat_ave)
     reach_temp <- print_table_opt1[m,3] + heat_ave
     print_table_opt1[m+1,3] <- reach_temp
-    diff <- 480 - m - 1
+    diff <- 300 - m - 1
     print(diff)
     if (reach_temp >= tem_set_point1){
       if (diff <= 2){
@@ -222,7 +222,7 @@ for (k in 410:480){
   }
 }
 
-for (i in 480:555){
+for (i in 300:615){
   temp_now <- print_table_opt1[i,3]
   print(temp_now)
   if (temp_now >= tem_set_point1){
@@ -281,13 +281,13 @@ for (i in 480:555){
 }
 
 print_table_opt1["low_set_point"] <- 21
-print_table_opt1[360:480,"low_set_point"] <- 17.47
+print_table_opt1[180:300,"low_set_point"] <- 16.7
 print_table_opt1["time_data"] <- 0
 my.lt <- as.POSIXct(temp_75_mid[1,2])
 
 #print_table_opt1$time_data <- as.POSIXct(print_table_opt1[,9], format = "%d-%b-%y %I:%M:%S %p",origin = "2017-06-28 08:00:00 AEST")
 
-for(i in 1:555){
+for(i in 1:615){
   print_table_opt1[i,9] <- as.character(my.lt)
   my.lt <- my.lt + 60
 }
@@ -296,26 +296,26 @@ for(i in 1:555){
 print_table_opt1$time_data <- as.POSIXct(strptime(print_table_opt1$time_data, format = "%Y-%m-%d %H:%M:%S"))
 #print_table_opt1$time_data <- as.Time(strptime(print_table_opt1$time_data, format = "%Y-%m-%d %H:%M:%S"))
 
-cols <- c("Simulation of OPT temperature"="red","Simulation of Monash system"="black","OPT setpoints"="#990000","Monash setpoints"="purple")
+cols <- c("Simulation of OPT model"="red","Simulation of Monash model"="black","OPT setpoints"="#990000","Monash setpoints"="purple")
 bar <- c('Occupy' = 'lightgreen', 'No-occupy' = 'lightblue')
-
+types <- c("Simulation of OPT model"=1,"Simulation of Monash model"=1,"OPT setpoints"=4,"Monash setpoints"=2)
 ggplot(print_table_opt1, aes(time_data),na.rm=T,group=1)+
   geom_rect(aes(xmin=as.POSIXct("2017-06-28 08:00:00 AEST"),
-                xmax=as.POSIXct("2017-06-28 13:59:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
-  geom_rect(aes(xmin=as.POSIXct("2017-06-28 13:59:00 AEST"),
-                xmax=as.POSIXct("2017-06-28 16:00:00 AEST"), ymin=17.47, ymax=22, fill="No-occupy"), alpha=1) +
-  geom_rect(aes(xmin=as.POSIXct("2017-06-28 16:00:00 AEST"),
-                xmax=as.POSIXct("2017-06-28 17:14:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
-  geom_line(aes(time_data, model_2,colour="Simulation of OPT temperature"),size=0.5)+
-  geom_line(aes(time_data, model_1,colour="Simulation of Monash system"),size=0.5)+
-  geom_line(aes(time_data, low_set_point,colour="OPT setpoints"),linetype="twodash",size=0.5)+
-  geom_hline(aes(yintercept=22,colour="Monash setpoints"), linetype="dashed")+
-  geom_hline(aes(yintercept=21, colour="Monash setpoints"), linetype="dashed")+
+                xmax=as.POSIXct("2017-06-28 10:59:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
+  geom_rect(aes(xmin=as.POSIXct("2017-06-28 10:59:00 AEST"),
+                xmax=as.POSIXct("2017-06-28 13:00:00 AEST"), ymin=16.7, ymax=22, fill="No-occupy"), alpha=1) +
+  geom_rect(aes(xmin=as.POSIXct("2017-06-28 13:00:00 AEST"),
+                xmax=as.POSIXct("2017-06-28 18:14:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
+  geom_line(aes(time_data, model_2,colour="Simulation of OPT model",linetype="Simulation of OPT model"),size=0.5)+
+  geom_line(aes(time_data, model_1,colour="Simulation of Monash model",linetype="Simulation of Monash model"),size=0.5)+
+  geom_line(aes(time_data, low_set_point,colour="OPT setpoints",linetype="OPT setpoints"),size=1)+
+  geom_hline(aes(yintercept=22,colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
+  geom_hline(aes(yintercept=21, colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
   theme(axis.text=element_text(size=15),axis.title=element_text(size=18,face="bold"),
         title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+
-  labs(title = "Wednesday (Schedule)", x = "Time", y = "Temperature (Celsius)",legend.text = element_text(size = 18))+
+  labs(title = "Thursday (Schedule)", x = "Time", y = "Temperature (Celsius)",legend.text = element_text(size = 18))+
   scale_colour_manual(name="line",values=cols)+
-  scale_fill_manual(name="Bar",values=bar)
+  scale_linetype_manual(name = "line",values = types)+scale_fill_manual(name="Space",values=bar)
 
 
 
