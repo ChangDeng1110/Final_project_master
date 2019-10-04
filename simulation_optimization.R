@@ -6,7 +6,7 @@ rownames(temp_75_mid) <- 1:25
 
 ################ 1 hours ###################
 tem_set_point1 <- 22
-tem_set_point2 <- 20
+tem_set_point2 <- 21
 print_table_opt1 <- as.data.frame(matrix(c(0), nrow = 60, ncol = 7))
 names(print_table_opt1)[1] <- "time"
 names(print_table_opt1)[2] <- "model_1"
