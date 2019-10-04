@@ -147,7 +147,7 @@ for (k in 20:60){
     print_table_opt1[m+1,3] <- reach_temp
     diff <- 60 - m - 1
     print(diff)
-    if (reach_temp >= (tem_set_point2+tem_set_point1)/2){
+    if (reach_temp >= tem_set_point2){
       if (diff <= 2){
         finish_data_test <- 1
       }else{
@@ -212,8 +212,8 @@ lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
 lines(print_table_opt1[,1], print_table_opt1[,7], col="black",lty=2)
 abline(h=22, col="blue",lty=2)
-abline(h=20, col="blue",lty=2)
-abline(h=19.24, col="red",lty=4)
+abline(h=21, col="blue",lty=2)
+abline(h=19.2, col="red",lty=4)
 abline(h=22, col="red",lty=4)
 #abline(h=19.24,col="green",lty=2)
 legend(1, 25, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
@@ -362,7 +362,7 @@ for (k in 70:120){
     print_table_opt1[m+1,3] <- reach_temp
     diff <- 120 - m - 1
     print(diff)
-    if (reach_temp >= (tem_set_point2+tem_set_point1)/2){
+    if (reach_temp >= tem_set_point2){
       if (diff <= 2){
         finish_data_test <- 1
       }else{
@@ -419,7 +419,7 @@ for(i in which(print_table_opt1[,3] == min(print_table_opt1[,3])):120){
 }
 
 print_table_opt1 <- na.omit(print_table_opt1)
-
+print(min(print_table_opt1[,3]))
 
 plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(15,27),
      main = "Two hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
@@ -428,8 +428,8 @@ lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
 lines(print_table_opt1[,1], print_table_opt1[,7], col="black",lty=2)
 abline(h=22, col="blue",lty=2)
-abline(h=20, col="blue",lty=2)
-abline(h=16.5, col="red",lty=4)
+abline(h=21, col="blue",lty=2)
+abline(h=16.45, col="red",lty=4)
 abline(h=22, col="red",lty=4)
 legend(1, 27, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
        col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)
@@ -575,7 +575,7 @@ for (k in 123:180){
     print_table_opt1[m+1,3] <- reach_temp
     diff <- 180 - m - 1
     print(diff)
-    if (reach_temp >= (tem_set_point2+tem_set_point1)/2){
+    if (reach_temp >= tem_set_point2){
       if (diff <= 3){
         finish_data_test <- 1
       }else{
@@ -632,6 +632,8 @@ for(i in which(print_table_opt1[,3] == min(print_table_opt1[,3])):180){
 }
 
 print_table_opt1 <- na.omit(print_table_opt1)
+print(min(print_table_opt1[,3]))
+
 
 plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(13,29),
      main = "Three hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
@@ -640,8 +642,8 @@ lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
 lines(print_table_opt1[,1], print_table_opt1[,7], col="black",lty=2)
 abline(h=22, col="blue",lty=2)
-abline(h=20, col="blue",lty=2)
-abline(h=15.8, col="red",lty=4)
+abline(h=21, col="blue",lty=2)
+abline(h=15.85, col="red",lty=4)
 abline(h=22, col="red",lty=4)
 legend(1, 29, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
        col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)
@@ -789,7 +791,7 @@ for (k in 180:240){
     print_table_opt1[m+1,3] <- reach_temp
     diff <- 240 - m - 1
     print(diff)
-    if (reach_temp >= (tem_set_point2+tem_set_point1)/2){
+    if (reach_temp >= tem_set_point2){
       if (diff <= 2){
         finish_data_test <- 1
       }else{
@@ -847,16 +849,17 @@ for(i in which(print_table_opt1[,3] == min(print_table_opt1[,3])):240){
 }
 
 print_table_opt1 <- na.omit(print_table_opt1)
+print(min(print_table_opt1[,3]))
+
 
 plot(print_table_opt1[,1], print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(15,28),
      main = "Four hour empty",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
-points(print_table_opt1[,1], print_table_opt1[,3], col="red", pch="*")
 lines(print_table_opt1[,1], print_table_opt1[,3], col="red",lty=1)
 lines(print_table_opt1[,1], print_table_opt1[,6], col="black",lty=2)
 lines(print_table_opt1[,1], print_table_opt1[,7], col="black",lty=2)
 abline(h=22, col="blue",lty=2)
-abline(h=20, col="blue",lty=2)
-abline(h=15.5, col="red",lty=4)
+abline(h=21, col="blue",lty=2)
+abline(h=15.65, col="red",lty=4)
 abline(h=22, col="red",lty=4)
 legend(1, 28, legend=c("opt_model", "monash_model",'old temp_set_point', 'new temp_set_point','uncertainty'),
        col=c("red", "blue", 'blue', 'red','black'), lty=c(1,1,2,4,2), cex=1)

@@ -351,7 +351,7 @@ for (i in 420:720){
 }
 
 print_table_opt1["low_set_point"] <- 21
-print_table_opt1[300:420,"low_set_point"] <- 16.7
+print_table_opt1[300:420,"low_set_point"] <- 17.25
 print_table_opt1["time_data"] <- 0
 my.lt <- as.POSIXct(temp_75_mid[1,2])
 
@@ -375,9 +375,9 @@ ggplot(print_table_opt1, aes(time_data),na.rm=T,group=1)+
   geom_rect(aes(xmin=as.POSIXct("2017-07-05 08:00:00 AEST"),
                 xmax=as.POSIXct("2017-07-05 10:59:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
   geom_rect(aes(xmin=as.POSIXct("2017-07-05 10:59:00 AEST"),
-                xmax=as.POSIXct("2017-07-05 13:00:00 AEST"), ymin=16.7, ymax=22, fill="No-occupy"), alpha=1) +
+                xmax=as.POSIXct("2017-07-05 13:00:00 AEST"), ymin=17.25, ymax=22, fill="No-occupy"), alpha=1) +
   geom_rect(aes(xmin=as.POSIXct("2017-07-05 13:00:00 AEST"),
-                xmax=as.POSIXct("2017-07-05 18:14:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
+                xmax=as.POSIXct("2017-07-05 18:00:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
   geom_line(aes(time_data, model_2,colour="Simulation of OPT model",linetype="Simulation of OPT model"),size=0.5)+
   geom_line(aes(time_data, model_1,colour="Simulation of Monash model",linetype="Simulation of Monash model"),size=0.5)+
   geom_line(aes(time_data, low_set_point,colour="OPT setpoints",linetype="OPT setpoints"),size=1)+
