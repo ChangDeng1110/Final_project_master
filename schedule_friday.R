@@ -1,12 +1,12 @@
 ################# Monday ###################
 set.seed(500)
-temp_75_mid <- read.csv("temprature_all.csv")[c(121:169),]
+temp_75_mid <- read.csv("temprature_all.csv")[c(6745:6793),]
 names(temp_75_mid)[3] <- "start_temp"
 names(temp_75_mid)[5] <- "outside_temp"
 rownames(temp_75_mid) <- 1:lengths(temp_75_mid)
 
-tem_set_point1 <- 22
-tem_set_point2 <- 21
+tem_set_point1 <- 21
+tem_set_point2 <- 20
 print_table_opt1 <- as.data.frame(matrix(c(0), nrow = 720, ncol = 7))
 names(print_table_opt1)[1] <- "time"
 names(print_table_opt1)[2] <- "model_1"
@@ -218,7 +218,7 @@ for (i in 119:720){
   }
 }
 
-print_table_opt1["low_set_point"] <- 21
+print_table_opt1["low_set_point"] <- 20
 print_table_opt1["time_data"] <- 0
 my.lt <- as.POSIXct(temp_75_mid[1,2])
 
@@ -237,21 +237,37 @@ cols <- c("Simulation of OPT model"="red","Simulation of Monash model"="black","
 bar <- c('Occupy' = 'lightgreen', 'No-occupy' = 'lightblue')
 types <- c("Simulation of OPT model"=1,"Simulation of Monash model"=1,"OPT setpoints"=4,"Monash setpoints"=2)
 ggplot(print_table_opt1, aes(time_data),na.rm=T,group=1)+
-  geom_rect(aes(xmin=as.POSIXct("2017-06-29 08:00:00 AEST"),
-                xmax=as.POSIXct("2017-06-29 18:00:00 AEST"), ymin=21, ymax=22, fill="Occupy"), alpha=1) +
-  geom_rect(aes(xmin=as.POSIXct("2017-06-29 6:00:00 AEST"),
-                xmax=as.POSIXct("2017-06-29 8:00:00 AEST"), ymin=21, ymax=22, fill="No-occupy"), alpha=1) +
+  geom_rect(aes(xmin=as.POSIXct("2017-09-06 08:00:00 AEST"),
+                xmax=as.POSIXct("2017-09-06 18:00:00 AEST"), ymin=20, ymax=21, fill="Occupy"), alpha=1) +
+  geom_rect(aes(xmin=as.POSIXct("2017-09-06 6:00:00 AEST"),
+                xmax=as.POSIXct("2017-09-06 8:00:00 AEST"), ymin=20, ymax=21, fill="No-occupy"), alpha=1) +
   geom_line(aes(time_data, model_2,colour="Simulation of OPT model",linetype="Simulation of OPT model"),size=0.5)+
   geom_line(aes(time_data, model_1,colour="Simulation of Monash model",linetype="Simulation of Monash model"),size=0.5)+
   geom_line(aes(time_data, low_set_point,colour="OPT setpoints",linetype="OPT setpoints"),size=1)+
-  geom_hline(aes(yintercept=22,colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
-  geom_hline(aes(yintercept=21, colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
+  geom_hline(aes(yintercept=21,colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
+  geom_hline(aes(yintercept=20, colour="Monash setpoints", linetype="Monash setpoints"),size=1)+
   theme(axis.text=element_text(size=15),axis.title=element_text(size=18,face="bold"),
         title=element_text(size=18,face="bold"),legend.text = element_text(size = 18))+
-  labs(title = "Friday (Schedule)", x = "Time", y = "Temperature (Celsius)",legend.text = element_text(size = 18))+
+  labs(title = "Sep 6", x = "Time", y = "Temperature (Celsius)",legend.text = element_text(size = 18))+
   scale_colour_manual(name="line",values=cols)+
   scale_linetype_manual(name = "line",values = types)+scale_fill_manual(name="Space",values=bar)
 
 
+check_1 <- print_table_opt1[1:720,]
+line_fore <- check_1[,2]
+line_time <- check_1[,1]
+forecast <- append(line_fore,check_1[,3]) 
+time_fore <- append(line_time,line_time) 
+MONASH <- rep("Model with Current Monash Setpoints", 720)
+optmodel <- rep("Optimised Model", 720)
+model_ab <- append(MONASH,optmodel) 
+
+sep_5 <- data.frame("forecast" = forecast, 
+                    "time" = time_fore,
+                    'Model' = model_ab)
+
+sep_5_final <- rbind(sep_6[1:720,],sep_6[759:1440,])
+
+write.csv(sep_6_final, file = "9_6.csv")
 
 

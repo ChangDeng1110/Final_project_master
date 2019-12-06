@@ -90,3 +90,24 @@ ggplot() +
   geom_rect(data = rects, aes(xmin = xstart, xmax = xend, 
                               ymin = -Inf, ymax = Inf), alpha = 0.4) + 
   geom_line(data = dat, aes(x,y))
+
+
+
+
+plot(print_table_opt1[,2], type="o", col="blue", pch="o", lty=1, ylim=c(15,26),
+     main = "Monash model",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
+lines(print_table_opt1[,1], print_table_opt1[,2], col="blue",lty=1)
+abline(h=22, col="blue",lty=2)
+abline(h=21, col="blue",lty=2)
+legend(1, 26, legend=c("monash_model",'old temp_set_point'),
+       col=c("blue", 'blue'), lty=c(1,2), cex=1)
+
+
+plot(print_table_opt1[,3], type="o", col="red", pch="*", lty=1, ylim=c(13,26),
+     main = "Optimisation model",xlab = "Min",ylab = "Temperature",cex.main=2, cex.lab=1.25, cex.axis=2)
+abline(h=22, col="blue",lty=2)
+abline(h=21, col="blue",lty=2)
+abline(h=13.79, col="red",lty=2)
+legend(1, 26, legend=c("OPT_model",'old temp_set_point',"new temp_set_point"),
+       col=c("red", 'blue', 'red'), lty=c(1,2,2), cex=1)
+

@@ -2,7 +2,7 @@ heating_model <- function(formula, data, indices){
   d <- data[indices,]
   d <- na.omit(d)
   rf <- rfsrc(rate~start_temp + outside_temp, data=d, 
-              mtry=3,ntree = 5000,importance = TRUE,nodesize=3,splitrule = "mse", ntime = 30)
+              mtry=3,ntree = 500,importance = TRUE,nodesize=3,splitrule = "mse", ntime = 30)
   preds<-predict(rf, use_data)
   return(preds$predicted)
 }

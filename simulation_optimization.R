@@ -735,7 +735,7 @@ for (i in 1:239){
 }
 
 #plot(print_table_opt1[,2])
-for (i in 1:180){
+for (i in 1:175){
   use_data_cool <- data.frame("start_temp" = print_table_opt1[i,3], 
                               "outside_temp" = print_table_opt1[i,4])
   print(use_data_cool)
@@ -754,7 +754,7 @@ for (i in 1:180){
 finish_data_test <- 0
 #stop_data <- 100
 
-for (k in 180:240){
+for (k in 175:240){
   use_data_cool <- data.frame("start_temp" = print_table_opt1[k,3], 
                               "outside_temp" = print_table_opt1[k,4])
   #print(use_data_cool)
